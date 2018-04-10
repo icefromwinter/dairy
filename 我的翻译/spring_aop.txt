@@ -1,15 +1,23 @@
 ﻿5.1.2. Spring AOP capabilities and goals
+ spring aop的能力和目标
+ 
 Spring AOP is implemented in pure Java. There is no need for a special compilation process. Spring AOP does not need to control the class loader hierarchy, and is thus suitable for use in a Servlet container or application server.
+spring aop是纯java实现的，不需要特殊编译过程，spring aop 不需要控制类加载器等级(大概是类的层级关系，以及加载次序)，因此适用于Servlet容器或者应服务。
 
 Spring AOP currently supports only method execution join points (advising the execution of methods on Spring beans). Field interception is not implemented, although support for field interception could be added without breaking the core Spring AOP APIs. If you need to advise field access and update join points, consider a language such as AspectJ.
+spring aop 现在支持方法执行加入切点，域(应该是属性)监听没有被实现，尽管域的监听可以被加上且不破坏spring aop核心接口。如果你需要通知域接收和更改切点，考虑一个叫AspectJ的语言。
 
 Spring AOP’s approach to AOP differs from that of most other AOP frameworks. The aim is not to provide the most complete AOP implementation (although Spring AOP is quite capable); it is rather to provide a close integration between AOP implementation and Spring IoC to help solve common problems in enterprise applications.
+spring aop 的面向切面变成不同于其它大多数AOP框架。目标不是提供很完善的aop实现（尽管spring aop 能力强大）;它宁愿提供一个紧密集成在aop实现和sping Ioc之间来帮助解决常见问题在企业应用中。
 
 Thus, for example, the Spring Framework’s AOP functionality is normally used in conjunction with the Spring IoC container. Aspects are configured using normal bean definition syntax (although this allows powerful "autoproxying" capabilities): this is a crucial difference from other AOP implementations. There are some things you cannot do easily or efficiently with Spring AOP, such as advise very fine-grained objects (such as domain objects typically): AspectJ is the best choice in such cases. However, our experience is that Spring AOP provides an excellent solution to most problems in enterprise Java applications that are amenable to AOP.
+这样，举个例子，spring框架的aop功能一般用于结合spring 控制反转容器(可能是说一般spring aop 和spring ioc容器一起用)；切面配置可以通过豆子(对象)定义语法(尽管允许强大的"自动代理"能力，(大概是自动代理也可以定义切面)):这是和其他aop实现的重要不同之处。有些事情你不能通过spring aop 有效简单的处理，比如通知更细密纹理的(大概是颗粒度更低的)对象(比如典型的域对象(大概内部类定义的内部对象)):AspectJ 是这种情况下最好的选择。然而，我们的经验是spring aop提供的杰出的解决方法对大多数发生在企业级的java应用中是经得起检验的。
 
 Spring AOP will never strive to compete with AspectJ to provide a comprehensive AOP solution. We believe that both proxy-based frameworks like Spring AOP and full-blown frameworks such as AspectJ are valuable, and that they are complementary, rather than in competition. Spring seamlessly integrates Spring AOP and IoC with AspectJ, to enable all uses of AOP to be catered for within a consistent Spring-based application architecture. This integration does not affect the Spring AOP API or the AOP Alliance API: Spring AOP remains backward-compatible. See the following chapter for a discussion of the Spring AOP APIs.
+spring aop 不会和AspectJ竞争来提供综合的aop解决方法。我们相信基于代理的框架如spring aop和成熟的框架如AspectJ都是有价值的，补充的，而不是竞争关系。spring aop 和ioc 可以与AspectJ无缝集成，使aop的所有用途都能被满足在一个一直的基于spring应用架构.这个集成不影响spring aop接口或者aop 联盟接口:spring aop 保持向后兼容，看看后面的章节我们来通论spring aop 接口。
 
 One of the central tenets of the Spring Framework is that of non-invasiveness; this is the idea that you should not be forced to introduce framework-specific classes and interfaces into your business/domain model. However, in some places the Spring Framework does give you the option to introduce Spring Framework-specific dependencies into your codebase: the rationale in giving you such options is because in certain scenarios it might be just plain easier to read or code some specific piece of functionality in such a way. The Spring Framework (almost) always offers you the choice though: you have the freedom to make an informed decision as to which option best suits your particular use case or scenario.
+一个spring框架的核心原则是无侵入；这个想法是你不需要被迫引入spring特定的类和接口在你的业务或者域模型。然而，有些地方spring 框架给你选择去引入spring框架的特定的依赖到你的类库中：给你这个选择的原因是因为在特定方案中它或许更容易去读或者编写一些特定功能碎片通过这种方式。spring框架几所通常提供这种选择：你可以自由的做一个了解情况的决定如哪个选项最适合你的特别的情况或者方案.
 
 One such choice that is relevant to this chapter is that of which AOP framework (and which AOP style) to choose. You have the choice of AspectJ and/or Spring AOP, and you also have the choice of either the @AspectJ annotation-style approach or the Spring XML configuration-style approach. The fact that this chapter chooses to introduce the @AspectJ-style approach first should not be taken as an indication that the Spring team favors the @AspectJ annotation-style approach over the Spring XML configuration-style.
 
