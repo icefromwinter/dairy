@@ -1,0 +1,6 @@
+Spring Boot
+Takes an opinionated view of building production-ready Spring applications. Spring Boot favors convention over configuration and is designed to get you up and running as quickly as possible.
+选取自己想要的视图来创建产品级别的spring应用，spring boot的惯用设计通过配置，使你可以尽快使应用运行起来
+
+Learn what you can do with Spring Boot
+Spring Boot offers a fast way to build applications. It looks at your classpath and at beans you have configured, makes reasonable assumptions about what you’re missing, and adds it. With Spring Boot you can focus more on business features and less on infrastructure.

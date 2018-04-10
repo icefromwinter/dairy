@@ -1,0 +1,17 @@
+Resource bundles contain locale-specific objects. When your program needs a locale-specific resource, a String for example, your program can load it from the resource bundle that is appropriate for the current user's locale. In this way, you can write program code that is largely independent of the user's locale isolating most, if not all, of the locale-specific information in resource bundles.
+资源包包含了一些指定的区域类(狭义理解是不同语言环境可以有不同语种)，当你的项目需要一个当前指定资源时，如一个字符串，你的程序可以从为当前用户区域准备好的资源包中导入，这样，你可以编码出独立用户区域的代码，如果不是所有的，隔离那些资源包中有的本地化信息
+This allows you to write programs that can:
+be easily localized, or translated, into different languages
+handle multiple locales at once
+be easily modified later to support even more locales
+这允许你的程序可以：
+	很容易的具地方色彩，或者被翻译成不同语言
+	处理多种场景在同一时刻
+	稍后较为容易的支持更多区域
+Resource bundles belong to families whose members share a common base name, but whose names also have additional components that identify their locales. For example, the base name of a family of resource bundles might be "MyResources". The family should have a default resource bundle which simply has the same name as its family - "MyResources" - and will be used as the bundle of last resort if a specific locale is not supported. The family can then provide as many locale-specific members as needed, for example a German one named "MyResources_de".
+多个资源包共享一个基础名称(它们的名字有附加的一些成分来标识它们的区域)组成的一个家庭，会有很多家庭，资源包中的一个家庭的基础名称可能是"MyResources"，一个家庭应该有一个默认资源包和家庭名称相同，如"MyResources"会被用来应对当一个指定区域不被支持时候。家庭可以提供很多区域化的成员如果需要，举个例子，德国的资源包名称为"MyResources_de"
+If there are different resources for different countries, you can make specializations: for example, "MyResources_de_CH" contains objects for the German language (de) in Switzerland (CH). If you want to only modify some of the resources in the specialization, you can do so.
+
+
+参照前人http://lavasoft.blog.51cto.com/62575/184605
+的理解大概就是一些类似不同语种语言包的东西

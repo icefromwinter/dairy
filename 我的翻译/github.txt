@@ -1,0 +1,66 @@
+Built for developers
+GitHub is a development platform inspired by the way you work. From open source to business, you can host and review code, manage projects, and build software alongside millions of other developers.
+
+为开发者而生，
+github是一个开发平台灵感来自于你们的工作方式，从开源到商业使用
+
+Username
+
+Pick a username
+Email
+
+you@example.com
+Password
+
+Create a password
+Use at least one letter, one numeral, and seven characters.
+Sign up for GitHub
+By clicking "Sign up for GitHub", you agree to our terms of service and privacy policy. We’ll occasionally send you account related emails.
+GitHub for teams
+A better way to work together
+GitHub brings teams together to work through problems, move ideas forward, and learn from each other along the way.
+
+Sign up your team
+
+ 
+Write better code
+Collaboration makes perfect. The conversations and code reviews that happen in Pull Requests help your team share the weight of your work and improve the software you build. Learn about code review.
+ 
+Manage your chaos
+Take a deep breath. On GitHub, project management happens in Issues and Projects, right alongside your code. All you have to do is mention a teammate to get them involved. Learn about project management.
+ 
+Find the right tools
+Browse and buy apps from GitHub Marketplace with your GitHub account. Find the tools you like or discover new favorites—then start using them in minutes. Learn about integrations.
+Security and administration
+Boxes? Check.
+We worried about your administrative and security needs so you don’t have to. From flexible hosting to authentication options, GitHub can help you meet your team’s requirements.
+
+Learn about GitHub for Business
+
+Security and administration
+Code security
+Prevent problems before they happen. Protected branches, signed commits, and required status checks protect your work and help you maintain a high standard for your code.
+
+Access controlled
+Encourage teams to work together while limiting access to those who need it with granular permissions and authentication through SAML/SSO and LDAP.
+
+Hosted where you need it
+Securely and reliably host your work on GitHub.com. Or, deploy GitHub Enterprise on your own servers or in a private cloud using Amazon Web Services, Azure or Google Cloud Platform.
+
+Compare plans
+
+Integrations
+Build on GitHub
+Customize your process with GitHub apps and an intuitive API. Integrate the tools you already use or discover new favorites to create a happier, more efficient way of working.
+Learn about integrations
+
+
+
+
+
+
+
+
+Sometimes, there’s more than one tool for the job. Why not try something new?
+
+Browse GitHub Marketplace
