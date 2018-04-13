@@ -1,0 +1,8 @@
+js立即执行，这样的好处是再引入了这个js文件后，可以立即使用它的方法
+(function(host){var me="meme";host.me=me;})(window);
+chrome console下输入
+window.me
+"meme"
+me
+"meme"
+一般angular，jquery差不多都是这样做的。
