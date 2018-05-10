@@ -45,25 +45,34 @@ Previously, the preferred way to use global transactions was via EJB CMT (Contai
 1.2.2. Local transactions
 Local transactions are resource-specific, such as a transaction associated with a JDBC connection. Local transactions may be easier to use, but have significant disadvantages: they cannot work across multiple transactional resources. For example, code that manages transactions using a JDBC connection cannot run within a global JTA transaction. Because the application server is not involved in transaction management, it cannot help ensure correctness across multiple resources. (It is worth noting that most applications use a single transaction resource.) Another downside is that local transactions are invasive to the programming model.
 局部事务
-局部事务是资源特别的，如事务关联一个jdbc连接。局部事务更容易使用，但是深深的不建议：他们不能多个事务源协同工作。比如编码管理事务使用jdbc连接不能运行在全局JTA事务上。因为应用服务没有被引入事务管理中，他不能确保通过多个资源时的正确性。(大多数应用使用一个事务资源是没有意义的).另外一个缺点是局部事务对编程模型的侵入性。
+局部事务是资源特别的，如事务关联一个jdbc连接。局部事务更容易使用，但是深深的不建议：他们不能多个事务源协同工作。比如编码管理事务使用jdbc连接不能运行在全局JTA事务上。因为应用服务没有被引入事务管理中，他不能确保通过多个资源时的正确性。(大多数应用使用一个事务资源是没有意义的).另外一个缺点是局部事务对编程模式的侵入性。
 
 1.2.3. Spring Framework’s consistent programming model
 Spring resolves the disadvantages of global and local transactions. It enables application developers to use a consistent programming model in any environment. You write your code once, and it can benefit from different transaction management strategies in different environments. The Spring Framework provides both declarative and programmatic transaction management. Most users prefer declarative transaction management, which is recommended in most cases.
+spring 框架的 坚持的编程模式
+spring解决了全局和局部事务的缺点。它允许应用开发者使用如一的编码风格在任何环境。你写你的代码一次，它能从不同环境的不同的事务管理策略获利。spring框架提供声明式和编程式事务管理。大多数用户喜欢声明式也是大多数场景下建议使用的。
 
 With programmatic transaction management, developers work with the Spring Framework transaction abstraction, which can run over any underlying transaction infrastructure. With the preferred declarative model, developers typically write little or no code related to transaction management, and hence do not depend on the Spring Framework transaction API, or any other transaction API.
+编程式事务管理，开发者与sping事务的抽象协作，它可以运行在任何潜在事务基础实施上(大概是支持事务的应用上)，使用优先声明的模型，开发者代表性的写很少或者不写来关联事务管理。因此不用依赖spring的事务API或者其它事务API.
 
 Do you need an application server for transaction management?
 The Spring Framework’s transaction management support changes traditional rules as to when an enterprise Java application requires an application server.
+你需要一个应用服务器来处理事务管理吗？
+spring 事务管理支持改变了传统规则，如什么时候一个企业级java应用需要一个应用服务器。
 
 In particular, you do not need an application server simply for declarative transactions through EJBs. In fact, even if your application server has powerful JTA capabilities, you may decide that the Spring Framework’s declarative transactions offer more power and a more productive programming model than EJB CMT.
 
+特别的地，你不需要同应用服务区简单的为了声明事务通过EJBs。实际上，即使你的应用服务有很强的JTA能力，你或许会选择使用spring的声明式事务来提供更有力更多产的编程风格比起EJB CMT。
 Typically you need an application server’s JTA capability only if your application needs to handle transactions across multiple resources, which is not a requirement for many applications. Many high-end applications use a single, highly scalable database (such as Oracle RAC) instead. Standalone transaction managers such as Atomikos Transactions and JOTM are other options. Of course, you may need other application server capabilities such as Java Message Service (JMS) and Java EE Connector Architecture (JCA).
+代表性的你需要一个应用服务的JTA能力仅仅在你的应用需要处理跨越多个资源时，也不是必须的
 
 The Spring Framework gives you the choice of when to scale your application to a fully loaded application server. Gone are the days when the only alternative to using EJB CMT or JTA was to write code with local transactions such as those on JDBC connections, and face a hefty rework if you need that code to run within global, container-managed transactions. With the Spring Framework, only some of the bean definitions in your configuration file, rather than your code, need to change.
 
 1.3. Understanding the Spring Framework transaction abstraction
 The key to the Spring transaction abstraction is the notion of a transaction strategy. A transaction strategy is defined by the org.springframework.transaction.PlatformTransactionManager interface:
 
+理解spring 事务抽象
+spring事务抽象核心是事务策略的概念。一个事务策略被 org.springframework.transaction.PlatformTransactionManager 接口定义
 public interface PlatformTransactionManager {
 
     TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException;
@@ -77,10 +86,13 @@ This is primarily a service provider interface (SPI), although it can be used pr
 Again in keeping with Spring’s philosophy, the TransactionException that can be thrown by any of the PlatformTransactionManager interface’s methods is unchecked (that is, it extends the java.lang.RuntimeException class). Transaction infrastructure failures are almost invariably fatal. In rare cases where application code can actually recover from a transaction failure, the application developer can still choose to catch and handle TransactionException. The salient point is that developers are not forced to do so.
 
 The getTransaction(..) method returns a TransactionStatus object, depending on a TransactionDefinition parameter. The returned TransactionStatus might represent a new transaction, or can represent an existing transaction if a matching transaction exists in the current call stack. The implication in this latter case is that, as with Java EE transaction contexts, a TransactionStatus is associated with a thread of execution.
-
+后一种情况暗示，在java ee事务上下文中，一个事务状态与线程执行关联。
 The TransactionDefinition interface specifies:
-
+TransactionDefinition接口指定:
 Propagation: Typically, all code executed within a transaction scope will run in that transaction. However, you have the option of specifying the behavior in the event that a transactional method is executed when a transaction context already exists. For example, code can continue running in the existing transaction (the common case); or the existing transaction can be suspended and a new transaction created. Spring offers all of the transaction propagation options familiar from EJB CMT. To read about the semantics of transaction propagation in Spring, see Transaction propagation.
+传播:代表性地，代码执行在一个事务作用域会运行在那个事务中(什么鬼)，然而，你有选项去指定行为在事件一个事务方法被执行，当一个事务上下文已经存在的时候
+
+
 
 Isolation: The degree to which this transaction is isolated from the work of other transactions. For example, can this transaction see uncommitted writes from other transactions?
 
