@@ -33,7 +33,7 @@ Transaction bound event describes how you could use application events within a 
 1.2. Advantages of the Spring Framework’s transaction support model
 spring 框架级事务支持模型的好处
 Traditionally, Java EE developers have had two choices for transaction management: global or local transactions, both of which have profound limitations. Global and local transaction management is reviewed in the next two sections, followed by a discussion of how the Spring Framework’s transaction management support addresses the limitations of the global and local transaction models.
-传统的，java EE开发关于事务管理有两个选择，总体的和局部的，他们都有渊博的限制，总体的和局部的事务管理
+传统的，java EE开发关于事务管理有两个选择，总体的和局部的，他们都有很深的限制，总体的和局部的事务管理下面两章评论，紧接着我们讨论spring框架的事务管理支持怎样处理全局和局部实物模型限制
 
 1.2.1. Global transactions
 Global transactions enable you to work with multiple transactional resources, typically relational databases and message queues. The application server manages global transactions through the JTA, which is a cumbersome API to use (partly due to its exception model). Furthermore, a JTA UserTransaction normally needs to be sourced from JNDI, meaning that you also need to use JNDI in order to use JTA. Obviously the use of global transactions would limit any potential reuse of application code, as JTA is normally only available in an application server environment.
