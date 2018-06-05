@@ -12,7 +12,7 @@ Join point: a point during the execution of a program, such as the execution of 
 Advice: action taken by an aspect at a particular join point. Different types of advice include "around", "before" and "after" advice. (Advice types are discussed below.) Many AOP frameworks, including Spring, model an advice as an interceptor, maintaining a chain of interceptors around the join point.
 通知:活动在切面在一个特定的结合点获取(大概是这个活动是切面结合点上定义的)。不同类型的通知包括：环绕，之前，之后(通知类型下面讨论).许多aop框架中，包括spring，把通知模拟成一个拦截器，维持一个拦截器的链在切点附近。
 Pointcut: a predicate that matches join points. Advice is associated with a pointcut expression and runs at any join point matched by the pointcut (for example, the execution of a method with a certain name). The concept of join points as matched by pointcut expressions is central to AOP, and Spring uses the AspectJ pointcut expression language by default.
-切入点:一个述语
+切入点:一个述语匹配集合点.通知管理切入点表达式且
 Introduction: declaring additional methods or fields on behalf of a type. Spring AOP allows you to introduce new interfaces (and a corresponding implementation) to any advised object. For example, you could use an introduction to make a bean implement an IsModified interface, to simplify caching. (An introduction is known as an inter-type declaration in the AspectJ community.)
 
 Target object: object being advised by one or more aspects. Also referred to as the advised object. Since Spring AOP is implemented using runtime proxies, this object will always be a proxied object.
