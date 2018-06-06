@@ -9,7 +9,7 @@ Let us begin by defining some central AOP concepts and terminology. These terms 
 Aspect: a modularization of a concern(某个问题的思考；顾虑；关心) that cuts across multiple classes. Transaction management is a good example of a crosscutting concern in enterprise Java applications. In Spring AOP, aspects are implemented using regular classes (the schema-based approach) or regular classes annotated with the @Aspect annotation (the @AspectJ style).
 切面:一个模块化的关注切入到多个类中。事务管理是个很好的横切关注在企业java应用中。在spring aop中，切面被普通类(基于模式)实现或者普通类注解@aspect实现。
 Join point: a point during the execution of a program, such as the execution of a method or the handling of an exception. In Spring AOP, a join point always represents a method execution.
-结合点:一个点在程序执行期间。比如执行一个方法或者处理一个异常。在spring aop中，一个结合点通常代表一个方法的执行。
+结合点:一个点在程序执行期间。比如执行一个方法或者处理一个异常。在spring aop中，一个结合点通常代表一个方法的执行。(因为excution，所以感觉结合点是一个动态的概念)
 Advice: action taken by an aspect at a particular join point. Different types of advice include "around", "before" and "after" advice. (Advice types are discussed below.) Many AOP frameworks, including Spring, model an advice as an interceptor, maintaining a chain of interceptors around the join point.
 通知:活动(行为)在切面在一个特定的结合点获取(大概是这个活动是切面结合点上定义的)。不同类型的通知包括：环绕，之前，之后(通知类型下面讨论).许多aop框架中，包括spring，把通知模拟成一个拦截器，维持一个拦截器的链在切点附近。
 Pointcut: a predicate that matches join points. Advice is associated with a pointcut expression and runs at any join point matched by the pointcut (for example, the execution of a method with a certain name). The concept of join points as matched by pointcut expressions is central to AOP, and Spring uses the AspectJ pointcut expression language by default.
@@ -21,21 +21,21 @@ Target object: object being advised by one or more aspects. Also referred to as 
 AOP proxy: an object created by the AOP framework in order to implement the aspect contracts (advise method executions and so on). In the Spring Framework, an AOP proxy will be a JDK dynamic proxy or a CGLIB proxy.
 aop代理：一个对象被spring aop框架处理为了去实现切面约定(通知方法执行等)。在spring框架中，一个aop代理会使用jdk动态代理或者cglib代理。
 Weaving: linking aspects with other application types or objects to create an advised object. This can be done at compile time (using the AspectJ compiler, for example), load time, or at runtime. Spring AOP, like other pure Java AOP frameworks, performs weaving at runtime.
-
+编织：将切面域其它应用类型和对象去创建被通知的对象。这可以在编译期(比如，使用AspectJ 编译器)，加载时，或者运行时完成。spring aop 想其它纯java aop框架，编织执行在运行期。
 Types of advice:
-
+通知的类型
 Before advice: Advice that executes before a join point, but which does not have the ability to prevent execution flow proceeding to the join point (unless it throws an exception).
-
+前置通知:通知执行在结合点之前，但是没有能力防止执行流处理的能力对于结合点(除非抛出异常)。(大概是当有多个通知时，不能按顺序执行它们)
 After returning advice: Advice to be executed after a join point completes normally: for example, if a method returns without throwing an exception.
-
+在返回后通知：在结合点结束后的一个通知：如,当一个方法返回没有抛出异常时。
 After throwing advice: Advice to be executed if a method exits by throwing an exception.
-
+异常后通知：通知在一个方法抛出异常时执行。
 After (finally) advice: Advice to be executed regardless of the means by which a join point exits (normal or exceptional return).
-
+后置异常：通知被执行无论正常异常。
 Around advice: Advice that surrounds a join point such as a method invocation. This is the most powerful kind of advice. Around advice can perform custom behavior before and after the method invocation. It is also responsible for choosing whether to proceed to the join point or to shortcut the advised method execution by returning its own return value or throwing an exception.
-
+环绕通知:通知环绕一个结合点如一个方法的调用。很有用的通知。环绕通知可以执行客户的行为在一个方法调用之前和调用之后。也可以相应
 Around advice is the most general kind of advice. Since Spring AOP, like AspectJ, provides a full range of advice types, we recommend that you use the least powerful advice type that can implement the required behavior. For example, if you need only to update a cache with the return value of a method, you are better off implementing an after returning advice than an around advice, although an around advice can accomplish the same thing. Using the most specific advice type provides a simpler programming model with less potential for errors. For example, you do not need to invoke the proceed() method on the JoinPoint used for around advice, and hence cannot fail to invoke it.
-
+ 
 In Spring 2.0, all advice parameters are statically typed, so that you work with advice parameters of the appropriate type (the type of the return value from a method execution for example) rather than Object arrays.
 
 The concept of join points, matched by pointcuts, is the key to AOP which distinguishes it from older technologies offering only interception. Pointcuts enable advice to be targeted independently of the Object-Oriented hierarchy. For example, an around advice providing declarative transaction management can be applied to a set of methods spanning multiple objects (such as all business operations in the service layer).
