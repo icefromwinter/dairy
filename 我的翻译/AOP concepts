@@ -1,5 +1,6 @@
 https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#aop-introduction-defn
 
+答案仅供参考
 
 5.1.1. AOP concepts
 aop 概念
@@ -8,17 +9,17 @@ Let us begin by defining some central AOP concepts and terminology. These terms 
 Aspect: a modularization of a concern(某个问题的思考；顾虑；关心) that cuts across multiple classes. Transaction management is a good example of a crosscutting concern in enterprise Java applications. In Spring AOP, aspects are implemented using regular classes (the schema-based approach) or regular classes annotated with the @Aspect annotation (the @AspectJ style).
 切面:一个模块化的关注切入到多个类中。事务管理是个很好的横切关注在企业java应用中。在spring aop中，切面被普通类(基于模式)实现或者普通类注解@aspect实现。
 Join point: a point during the execution of a program, such as the execution of a method or the handling of an exception. In Spring AOP, a join point always represents a method execution.
-结合点:一个点在程序执行期间。如比如执行一个方法或者处理一个异常。在spring aop中，一个结合点通常代表一个方法的执行。
+结合点:一个点在程序执行期间。比如执行一个方法或者处理一个异常。在spring aop中，一个结合点通常代表一个方法的执行。
 Advice: action taken by an aspect at a particular join point. Different types of advice include "around", "before" and "after" advice. (Advice types are discussed below.) Many AOP frameworks, including Spring, model an advice as an interceptor, maintaining a chain of interceptors around the join point.
-通知:活动在切面在一个特定的结合点获取(大概是这个活动是切面结合点上定义的)。不同类型的通知包括：环绕，之前，之后(通知类型下面讨论).许多aop框架中，包括spring，把通知模拟成一个拦截器，维持一个拦截器的链在切点附近。
+通知:活动(行为)在切面在一个特定的结合点获取(大概是这个活动是切面结合点上定义的)。不同类型的通知包括：环绕，之前，之后(通知类型下面讨论).许多aop框架中，包括spring，把通知模拟成一个拦截器，维持一个拦截器的链在切点附近。
 Pointcut: a predicate that matches join points. Advice is associated with a pointcut expression and runs at any join point matched by the pointcut (for example, the execution of a method with a certain name). The concept of join points as matched by pointcut expressions is central to AOP, and Spring uses the AspectJ pointcut expression language by default.
-切入点:一个述语匹配集合点.通知管理切入点表达式且
+切入点:一个述语(描述)用来匹配结合点.通知是和切点表达式有关联的且运行在那些匹配结合的切点点上(例子：执行的方法的确定名称)。结合点的概念被切点表达式匹配是个重要概念对于AOP来说，spring默认使用AspectJ切点表达式语言。
 Introduction: declaring additional methods or fields on behalf of a type. Spring AOP allows you to introduce new interfaces (and a corresponding implementation) to any advised object. For example, you could use an introduction to make a bean implement an IsModified interface, to simplify caching. (An introduction is known as an inter-type declaration in the AspectJ community.)
-
+引进:声明附加的方法或者域到类型的代表上(给对象增加方法和域)。Spring Aop 允许你介绍新的接口(和一个相应的实现)到被通知的对象。比如，你可以使用一个介绍让一个bean实现一个被修改的接口，去简化缓存(一个介绍被当做一个埋葬的类型声明在AspectJ社区)
 Target object: object being advised by one or more aspects. Also referred to as the advised object. Since Spring AOP is implemented using runtime proxies, this object will always be a proxied object.
-
+目标对象：目标对象被一个或多个切面通知。也关联被通知的对象。自从spring aop被运行时代理实现，这个对象将会一直是个代理对象。
 AOP proxy: an object created by the AOP framework in order to implement the aspect contracts (advise method executions and so on). In the Spring Framework, an AOP proxy will be a JDK dynamic proxy or a CGLIB proxy.
-
+aop代理：一个对象被spring aop框架处理为了去实现切面约定(通知方法执行等)。在spring框架中，一个aop代理会使用jdk动态代理或者cglib代理。
 Weaving: linking aspects with other application types or objects to create an advised object. This can be done at compile time (using the AspectJ compiler, for example), load time, or at runtime. Spring AOP, like other pure Java AOP frameworks, performs weaving at runtime.
 
 Types of advice:
