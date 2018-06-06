@@ -33,9 +33,10 @@ After throwing advice: Advice to be executed if a method exits by throwing an ex
 After (finally) advice: Advice to be executed regardless of the means by which a join point exits (normal or exceptional return).
 后置异常：通知被执行无论正常异常。
 Around advice: Advice that surrounds a join point such as a method invocation. This is the most powerful kind of advice. Around advice can perform custom behavior before and after the method invocation. It is also responsible for choosing whether to proceed to the join point or to shortcut the advised method execution by returning its own return value or throwing an exception.
-环绕通知:通知环绕一个结合点如一个方法的调用。很有用的通知。环绕通知可以执行客户的行为在一个方法调用之前和调用之后。也可以相应
+环绕通知:通知环绕一个结合点如一个方法的调用。很有用的通知。环绕通知可以执行客户的行为在一个方法调用之前和调用之后。在选择是否继续执行结合点或者通过返回值或者抛出异常来简化被通知方法执行是可靠的(此处google翻译了，但是还不是很明版)。
 Around advice is the most general kind of advice. Since Spring AOP, like AspectJ, provides a full range of advice types, we recommend that you use the least powerful advice type that can implement the required behavior. For example, if you need only to update a cache with the return value of a method, you are better off implementing an after returning advice than an around advice, although an around advice can accomplish the same thing. Using the most specific advice type provides a simpler programming model with less potential for errors. For example, you do not need to invoke the proceed() method on the JoinPoint used for around advice, and hence cannot fail to invoke it.
- 
+ 环绕通知是一中很普遍的通知，自从spring aop，像 AspectJ，提供了了全范围的通知类型，我们建议你使用最少力量的通知类型来实现你需要的行为。比如，你仅仅需要通过方法的返回值更改缓存，你使用返回后通知会比环绕通知好，尽管环绕通知也可以实现同样的事情。使用最明确的通知类型提供更简单的编程模型伴随着更少的出错潜力。比如，你不需要继续进行调用继续进行方法在结合点上，因此你就不能在调用的时候出错。
 In Spring 2.0, all advice parameters are statically typed, so that you work with advice parameters of the appropriate type (the type of the return value from a method execution for example) rather than Object arrays.
-
+在spring 2.0，所有的通知参数都是静态类型的，所以与你合作的是合适类型(一个方法执行的返回值类型)的通知参数而不是对象数组。(不太理解，先放着)
 The concept of join points, matched by pointcuts, is the key to AOP which distinguishes it from older technologies offering only interception. Pointcuts enable advice to be targeted independently of the Object-Oriented hierarchy. For example, an around advice providing declarative transaction management can be applied to a set of methods spanning multiple objects (such as all business operations in the service layer).
+结合点的感念，被切点匹配，是aop的核心，它将它与只提供旧技术只提供拦截功能分开。切点允许通知目标独立于对象关联层次。如，一个环绕通知提供生命式事务管理可以被用在方法中
