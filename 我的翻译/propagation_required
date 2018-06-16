@@ -1,0 +1,15 @@
+PROPAGATION_REQUIRED
+
+PROPAGATION_REQUIRED enforces a physical transaction: either locally for the current scope if no transaction exists yet, or participating in an existing 'outer' transaction defined for a larger scope. This is a fine default in common call stack arrangements within the same thread, e.g. a service facade delegating to several repository methods where all the underlying resources have to participate in the service-level transaction.
+传播_必须的 
+传播_必须的 强制执行一个物理事务局部地在当前域中如果没有还没有事物存在，或者加入一个存在在外部的事务定义在更大域中的。这是一个好的默认设置在常用栈安排中在一个线程的时候。比如一个服务委派几个储藏(大概是跟数据库交互的方法)方法那些底层资源必须加入服务层事务中(一个服务调用几个访问数据的底层方法会在一个事务中)。
+
+
+By default, a participating transaction will join the characteristics of the outer scope, silently ignoring the local isolation level, timeout value or read-only flag (if any). Consider switching the "validateExistingTransactions" flag to "true" on your transaction manager if you’d like isolation level declarations to get rejected when participating in an existing transaction with a different isolation level. This non-lenient mode will also reject read-only mismatches, i.e. an inner read-write transaction trying to participate in a read-only outer scope.
+默认的，一个参加的事务(应该是多个方法加入同一个事务)会加入外层域的特性。静默的忽略局部隔离级别，超时值或者read-only.考虑切换“校验存在事务”标志为“真”在你的事务管理中，如果你想(让外层的（我推断的）)隔离级别声明被拒绝当你加入一个已存在有不同级别的隔离级别的时候。这种不仁慈模式同样会拒绝只读不匹配。比如一个内部的读写事务尝试去加入一个只读的事务域中。
+
+When the propagation setting is PROPAGATION_REQUIRED, a logical transaction scope is created for each method upon which the setting is applied. Each such logical transaction scope can determine rollback-only status individually, with an outer transaction scope being logically independent from the inner transaction scope. Of course, in case of standard PROPAGATION_REQUIRED behavior, all these scopes will be mapped to the same physical transaction. So a rollback-only marker set in the inner transaction scope does affect the outer transaction’s chance to actually commit (as you would expect it to).
+当传播设置为 传播_必须的，一个逻辑上的事务域会为应用了该设置的方法。每个这样的逻辑事务域可以独立的决定只回滚(rollback-only,应该是只回滚该事务)状态，和一个外部事务域在逻辑上是独立与内部事物域的。当然，如果标准“传播_必须的 ”行为，所有的与会映射在一个物理事务上。所以只回滚标志设置子内部事务域影响外部事务实际提交的机会(像你期望的那样)
+
+However, in the case where an inner transaction scope sets the rollback-only marker, the outer transaction has not decided on the rollback itself, and so the rollback (silently triggered by the inner transaction scope) is unexpected. A corresponding UnexpectedRollbackException is thrown at that point. This is expected behavior so that the caller of a transaction can never be misled to assume that a commit was performed when it really was not. So if an inner transaction (of which the outer caller is not aware) silently marks a transaction as rollback-only, the outer caller still calls commit. The outer caller needs to receive an UnexpectedRollbackException to indicate clearly that a rollback was performed instead.
+然而,万一哪里一个内部事务域设置了只回滚标志，外部事务没有打算回滚它自己，所以回滚(被内部事物域触发的)不是希望的。一个合适的不期待回滚错误在那时被抛出。这是一个期待的行为，所以事务调用不会被错误引导去假设一个提交已经被执行当它实际上并没有的时候。所以一个内部事务(外部事务没有意识到)静静地是标记一个事务只会滚，外部调用者还是调用提交。外部调用需要接受不期待回滚错误来明确表示一个回滚被替代执行了。
