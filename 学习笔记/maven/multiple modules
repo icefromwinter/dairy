@@ -1,0 +1,6 @@
+原文地址：
+https://maven.apache.org/guides/getting-started/index.html#How_do_I_build_more_than_one_project_at_once
+
+怎样build多于一个项目在一次操作中？
+处理多个模块的概念被考虑在了maven中。
+在这个章节。我们将会展示怎样创建一个war，并且包含之前的jar在一步操作中，首先，我们需要创建一个父亲pom.xml 文件在目录中在两个项目之外。
